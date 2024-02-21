@@ -1,6 +1,6 @@
 {
     "name": "pxt-radio-mesh",
-    "description": "",
+    "description": "Mesh Radio",
     "dependencies": {
         "core": "*",
         "radio": "*",
