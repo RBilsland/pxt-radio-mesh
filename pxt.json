@@ -11,6 +11,7 @@
         "radio-mesh.ts",
         "targetoverrides.ts",
         "README.md",
+        "main.cpp",
         "main.ts"
     ],
     "testFiles": [
