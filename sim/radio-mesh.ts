@@ -1,27 +1,27 @@
-namespace pxsim.radioMesh {
+namespace pxsim.radio {
     export function raiseEvent(id: number, eventid: number): void {
-        const state = pxsim.getRadioMeshState();
+        const state = pxsim.getRadioState();
         state.raiseEvent(id, eventid);
     }
 
     export function setGroup(id: number): void {
-        const state = pxsim.getRadioMeshState();
+        const state = pxsim.getRadioState();
         state.setGroup(id);
     }
 
     export function setTransmitPower(power: number): void {
-        const state = pxsim.getRadioMeshState();
+        const state = pxsim.getRadioState();
         state.setTransmitPower(power);
     }
 
     export function setFrequencyBand(band: number) { 
-        const state = pxsim.getRadioMeshState();
+        const state = pxsim.getRadioState();
         state.setFrequencyBand(band);
     }
 
     export function sendRawPacket(buf: RefBuffer) {
         let cb = getResume();
-        const state = pxsim.getRadioMeshState();
+        const state = pxsim.getRadioState();
         if (state.enable) {
             state.datagram.send({
                 type: 0,
@@ -33,7 +33,7 @@ namespace pxsim.radioMesh {
     }
 
     export function readRawPacket() {
-        const state = pxsim.getRadioMeshState();
+        const state = pxsim.getRadioState();
         const packet = state.datagram.recv();
         const buf = packet.payload.bufferData;
         const n = buf.length;
@@ -49,17 +49,17 @@ namespace pxsim.radioMesh {
     }
 
     export function onDataReceived(handler: RefAction): void {
-        const state = pxsim.getRadioMeshState();
+        const state = pxsim.getRadioState();
         state.datagram.onReceived(handler);
     }
 
     export function off(){
-        const state = pxsim.getRadioMeshState();
+        const state = pxsim.getRadioState();
         state.off();
     }
 
     export function on(){
-        const state = pxsim.getRadioMeshState();
+        const state = pxsim.getRadioState();
         state.on();
     }
 
