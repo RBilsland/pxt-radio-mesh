@@ -2,13 +2,15 @@
     "name": "pxt-radio-mesh",
     "description": "Mesh Radio",
     "dependencies": {
-        "core": "*",
-        "radio": "*",
-        "microphone": "*"
+        "core": "*"
     },
     "files": [
         "main.blocks",
-        "main.ts",
+        "shims.d.ts",
+        "enums.d.ts",
+        "radio-mesh.cpp",
+        "radio-mesh.ts",
+        "targetoverrides.ts",
         "README.md"
     ],
     "testFiles": [
