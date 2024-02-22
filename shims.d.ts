@@ -6,24 +6,38 @@
 declare namespace radioMesh {
 
     /**
-     * Sends an event over radio mesh to neigboring devices
+     * Disables the radio for use as a multipoint sender/receiver.
+     * Disabling radio will help conserve battery power when it is not in use.
      */
-    //% blockId=radioMeshRaiseEvent block="radio raise event|from source %src=control_event_source_id|with value %value=control_event_value_id"
+    //% help=radioMesh/off shim=radioMesh::off
+    function off(): void;
+
+    /**
+     * Initialises the radio for use as a multipoint sender/receiver
+     * Only useful when the radio.off() is used beforehand.
+     */
+    //% help=radioMesh/on shim=radioMesh::on
+    function on(): void;
+
+    /**
+     * Sends an event over radio to neigboring devices
+     */
+    //% blockId=radioMeshRaiseEvent block="radio mesh raise event|from source %src=control_event_source_id|with value %value=control_event_value_id"
     //% blockExternalInputs=1
     //% advanced=true
     //% weight=1
-    //% help=radio-mesh/raise-event shim=radioMesh::raiseEvent
+    //% help=radioMesh/raise-event shim=radioMesh::raiseEvent
     function raiseEvent(src: int32, value: int32): void;
 
     /**
-     * Internal use only. Takes the next packet from the radio mesh queue and returns its contents + RSSI in a Buffer.
+     * Internal use only. Takes the next packet from the radio queue and returns its contents + RSSI in a Buffer.
      * @returns NULL if no packet available
      */
     //% shim=radioMesh::readRawPacket
     function readRawPacket(): Buffer;
 
     /**
-     * Internal use only. Sends a raw packet through the radio mesh (assumes RSSI appened to packet)
+     * Internal use only. Sends a raw packet through the radio (assumes RSSI appened to packet)
      */
     //% async shim=radioMesh::sendRawPacket
     function sendRawPacket(msg: Buffer): void;
@@ -31,27 +45,28 @@ declare namespace radioMesh {
     /**
      * Used internally by the library.
      */
-    //% help=radio-mesh/on-data-received
+    //% help=radioMesh/on-data-received
     //% weight=0
     //% blockId=radio_mesh_datagram_received_event block="radio mesh on data received" blockGap=8
     //% deprecated=true blockHidden=1 shim=radioMesh::onDataReceived
     function onDataReceived(body: () => void): void;
 
     /**
-     * Sets the group id for radio mesh communications. A micro:bit can only listen to one group ID at any time.
+     * Sets the group id for radio communications. A micro:bit can only listen to one group ID at any time.
      * @param id the group id between ``0`` and ``255``, eg: 1
      */
-    //% help=radio-mesh/set-group
+    //% help=radioMesh/set-group
     //% weight=100
     //% blockId=radio_mesh_set_group block="radio mesh set group %ID"
-    //% id.min=0 id.max=255 shim=radioMesh::setGroup
+    //% id.min=0 id.max=255
+    //% group="Group" shim=radioMesh::setGroup
     function setGroup(id: int32): void;
 
     /**
      * Change the output power level of the transmitter to the given value.
      * @param power a value in the range 0..7, where 0 is the lowest power and 7 is the highest. eg: 7
      */
-    //% help=radio-mesh/set-transmit-power
+    //% help=radioMesh/set-transmit-power
     //% weight=9 blockGap=8
     //% blockId=radio_mesh_set_transmit_power block="radio mesh set transmit power %power"
     //% power.min=0 power.max=7
@@ -59,12 +74,12 @@ declare namespace radioMesh {
     function setTransmitPower(power: int32): void;
 
     /**
-     * Change the transmission and reception band of the radio mesh to the given channel
+     * Change the transmission and reception band of the radio to the given channel
      * @param band a frequency band in the range 0 - 83. Each step is 1MHz wide, based at 2400MHz.
      **/
-    //% help=radio-mesh/set-frequency-band
+    //% help=radioMesh/set-frequency-band
     //% weight=8 blockGap=8
-    //% blockId=radio_mesh_set_frequency_band block="radio mesh set frequency band %band"
+    //% blockId=radio_mesh_set_frequency_band block="radio set frequency band %band"
     //% band.min=0 band.max=83
     //% advanced=true shim=radioMesh::setFrequencyBand
     function setFrequencyBand(band: int32): void;
