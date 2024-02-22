@@ -363,7 +363,7 @@ namespace radioMesh {
     function sendPacket(packet: RadioPacket) {
         packet.time = control.millis();
         packet.serial = transmittingSerial ? control.deviceSerialNumber() : 0;
-        radio.sendRawPacket(packet.data);
+        radioMesh.sendRawPacket(packet.data);
     }
 
     function truncateString(str: string, bytes: number) {
