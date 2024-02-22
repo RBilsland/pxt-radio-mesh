@@ -1,5 +1,5 @@
 // Auto-generated. Do not edit.
-declare namespace radio {
+declare namespace radioMesh {
 }
 
 // Auto-generated. Do not edit. Really.
