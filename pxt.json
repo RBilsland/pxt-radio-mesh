@@ -1,6 +1,9 @@
 {
     "name": "radio-mesh",
     "description": "The radio mesh services",
+    "dependencies": {
+        "core": "file:../core"
+    },
     "files": [
         "README.md",
         "shims.d.ts",
@@ -10,7 +13,12 @@
         "targetoverrides.ts"
     ],
     "public": true,
-    "dependencies": {
-        "core": "file:../core"
-    }
+    "targetVersions": {
+        "target": "6.1.10",
+        "targetId": "microbit"
+    },
+    "supportedTargets": [
+        "microbit"
+    ],
+    "preferredEditor": "tsprj"
 }
