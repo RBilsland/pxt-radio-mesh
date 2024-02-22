@@ -235,7 +235,7 @@ CODAL_RADIO* getRadioMesh() {
      */
     //% help=radioMesh/set-group
     //% weight=100
-    //% blockId=radio_mesh_set_group block="radio set mesh group %ID"
+    //% blockId=radio_mesh_set_group block="radio mesh set group %ID"
     //% id.min=0 id.max=255
     //% group="Group"
     void setGroup(int id) {
