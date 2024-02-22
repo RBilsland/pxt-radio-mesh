@@ -1,4 +1,4 @@
-namespace pxsim.radio {
+namespace pxsim.radioMesh {
     export function raiseEvent(id: number, eventid: number): void {
         const state = pxsim.getRadioState();
         state.raiseEvent(id, eventid);

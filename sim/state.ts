@@ -1,36 +1,36 @@
 namespace pxsim {
-    export interface RadioBoard extends EventBusBoard {
-        radioState: RadioState;
+    export interface RadioMeshBoard extends EventBusBoard {
+        RadioMeshState: RadioMeshState;
     }
 
-    export function getRadioState() {
-        return (board() as any as RadioBoard).radioState;
+    export function getRadioMeshState() {
+        return (board() as any as RadioMeshBoard).RadioMeshState;
     }
 
-    export interface PacketBuffer {
-        payload: SimulatorRadioPacketPayload;
+    export interface MeshPacketBuffer {
+        payload: SimulatorRadioMeshPacketPayload;
         rssi: number;
         serial: number;
         time: number;
     }
 
     // Extends interface in pxt-core
-    export interface SimulatorRadioPacketPayload {
+    export interface SimulatorRadioMeshPacketPayload {
         bufferData?: Uint8Array;
     }
 
-    export interface RadioDAL {
+    export interface RadioMeshDAL {
         ID_RADIO: number;
         RADIO_EVT_DATAGRAM: number;
     }
 
-    export class RadioDatagram {
-        datagram: PacketBuffer[] = [];
-        lastReceived: PacketBuffer = RadioDatagram.defaultPacket();
+    export class RadioMeshDatagram {
+        datagram: MeshPacketBuffer[] = [];
+        lastReceived: MeshPacketBuffer = RadioMeshDatagram.defaultPacket();
         // this value is unset until the user decide to set the RSSI via the simulator UI
         private _rssi: number;
 
-        constructor(private runtime: Runtime, public dal: RadioDAL) {
+        constructor(private runtime: Runtime, public dal: RadioMeshDAL) {
             this._rssi = undefined; // not set yet
         }
 
@@ -42,14 +42,14 @@ namespace pxsim {
             this._rssi = value | 0;
         }
 
-        queue(packet: PacketBuffer) {
+        queue(packet: MeshPacketBuffer) {
             if (this.datagram.length < 4)
                 this.datagram.push(packet);
             (<EventBusBoard>runtime.board).bus.queue(this.dal.ID_RADIO, this.dal.RADIO_EVT_DATAGRAM);
         }
 
-        send(payload: SimulatorRadioPacketPayload) {
-            const state = getRadioState();
+        send(payload: SimulatorRadioMeshPacketPayload) {
+            const state = getRadioMeshState();
             Runtime.postMessage(<SimulatorRadioPacketMessage>{
                 type: "radiopacket",
                 broadcast: true,
@@ -60,9 +60,9 @@ namespace pxsim {
             })
         }
 
-        recv(): PacketBuffer {
+        recv(): MeshPacketBuffer {
             let r = this.datagram.shift();
-            if (!r) r = RadioDatagram.defaultPacket();
+            if (!r) r = RadioMeshDatagram.defaultPacket();
             return this.lastReceived = r;
         }
 
@@ -71,7 +71,7 @@ namespace pxsim {
             this.recv();
         }
 
-        private static defaultPacket(): PacketBuffer {
+        private static defaultPacket(): MeshPacketBuffer {
             return {
                 rssi: -1,
                 serial: 0,
@@ -81,16 +81,16 @@ namespace pxsim {
         }
     }
 
-    export class RadioState {
+    export class RadioMeshState {
         power = 0;
         transmitSerialNumber = false;
-        datagram: RadioDatagram;
+        datagram: RadioMeshDatagram;
         groupId: number;
         band: number;
         enable: boolean;
 
-        constructor(private readonly runtime: Runtime, private readonly board: BaseBoard, dal: RadioDAL) {
-            this.datagram = new RadioDatagram(runtime, dal);
+        constructor(private readonly runtime: Runtime, private readonly board: BaseBoard, dal: RadioMeshDAL) {
+            this.datagram = new RadioMeshDatagram(runtime, dal);
             this.power = 6; // default value
             this.groupId = 0;
             this.band = 7; // https://github.com/lancaster-university/microbit-dal/blob/master/inc/core/MicroBitConfig.h#L320

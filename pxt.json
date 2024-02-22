@@ -1,12 +1,12 @@
 {
-    "name": "radio",
-    "description": "The radio services",
+    "name": "radio-mesh",
+    "description": "The radio mesh services",
     "files": [
         "README.md",
         "shims.d.ts",
         "enums.d.ts",
-        "radio.cpp",
-        "radio.ts",
+        "radio-mesh.cpp",
+        "radio-mesh.ts",
         "targetoverrides.ts"
     ],
     "public": true,

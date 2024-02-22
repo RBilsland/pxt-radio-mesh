@@ -45,17 +45,17 @@ using namespace pxt;
 #endif
 
 //% color=#E3008C weight=96 icon="\uf012"
-namespace radio {
+namespace radioMesh {
     
 #if CODAL_RADIO_MICROBIT_DAL
     CODAL_RADIO* getRadio() {
         return &uBit.radio;
     }
 #elif defined(CODAL_RADIO)
-class RadioWrap {
+class RadioMeshWrap {
     CODAL_RADIO radio;
     public:
-        RadioWrap() 
+        RadioMeshWrap() 
             : radio()
         {}
 
@@ -63,9 +63,9 @@ class RadioWrap {
         return &radio;
     }
 };
-SINGLETON(RadioWrap);
+SINGLETON(RadioMeshWrap);
 CODAL_RADIO* getRadio() {
-    auto wrap = getRadioWrap();
+    auto wrap = getRadioMeshWrap();
     if (NULL != wrap)
         return wrap->getRadio();    
     return NULL;
@@ -107,7 +107,7 @@ CODAL_RADIO* getRadio() {
     * Disables the radio for use as a multipoint sender/receiver.
     * Disabling radio will help conserve battery power when it is not in use.
     */
-    //% help=radio/off
+    //% help=radioMesh/off
     void off() {
 #ifdef CODAL_RADIO
         auto radio = getRadio();
@@ -129,7 +129,7 @@ CODAL_RADIO* getRadio() {
     * Initialises the radio for use as a multipoint sender/receiver
     * Only useful when the radio.off() is used beforehand.
     */
-    //% help=radio/on
+    //% help=radioMesh/on
     void on() {
 #ifdef CODAL_RADIO
         auto radio = getRadio();
@@ -150,11 +150,11 @@ CODAL_RADIO* getRadio() {
     /**
     * Sends an event over radio to neigboring devices
     */
-    //% blockId=radioRaiseEvent block="radio raise event|from source %src=control_event_source_id|with value %value=control_event_value_id"
+    //% blockId=radioMeshRaiseEvent block="radio raise event|from source %src=control_event_source_id|with value %value=control_event_value_id"
     //% blockExternalInputs=1
     //% advanced=true
     //% weight=1
-    //% help=radio/raise-event
+    //% help=radioMesh/raise-event
     void raiseEvent(int src, int value) {
 #ifdef CODAL_RADIO        
         if (radioEnable() != DEVICE_OK) return;
@@ -216,9 +216,9 @@ CODAL_RADIO* getRadio() {
     /**
      * Used internally by the library.
      */
-    //% help=radio/on-data-received
+    //% help=radioMesh/on-data-received
     //% weight=0
-    //% blockId=radio_datagram_received_event block="radio on data received" blockGap=8
+    //% blockId=radio_mesh_datagram_received_event block="radio on data received" blockGap=8
     //% deprecated=true blockHidden=1
     void onDataReceived(Action body) {
 #ifdef CODAL_RADIO        
@@ -233,9 +233,9 @@ CODAL_RADIO* getRadio() {
      * Sets the group id for radio communications. A micro:bit can only listen to one group ID at any time.
      * @param id the group id between ``0`` and ``255``, eg: 1
      */
-    //% help=radio/set-group
+    //% help=radioMesh/set-group
     //% weight=100
-    //% blockId=radio_set_group block="radio set group %ID"
+    //% blockId=radio_mesh_set_group block="radio set group %ID"
     //% id.min=0 id.max=255
     //% group="Group"
     void setGroup(int id) {
@@ -250,9 +250,9 @@ CODAL_RADIO* getRadio() {
      * Change the output power level of the transmitter to the given value.
     * @param power a value in the range 0..7, where 0 is the lowest power and 7 is the highest. eg: 7
     */
-    //% help=radio/set-transmit-power
+    //% help=radioMesh/set-transmit-power
     //% weight=9 blockGap=8
-    //% blockId=radio_set_transmit_power block="radio set transmit power %power"
+    //% blockId=radio_mesh_set_transmit_power block="radio set transmit power %power"
     //% power.min=0 power.max=7
     //% advanced=true
     void setTransmitPower(int power) {
@@ -267,9 +267,9 @@ CODAL_RADIO* getRadio() {
     * Change the transmission and reception band of the radio to the given channel
     * @param band a frequency band in the range 0 - 83. Each step is 1MHz wide, based at 2400MHz.
     **/
-    //% help=radio/set-frequency-band
+    //% help=radioMesh/set-frequency-band
     //% weight=8 blockGap=8
-    //% blockId=radio_set_frequency_band block="radio set frequency band %band"
+    //% blockId=radio_mesh_set_frequency_band block="radio set frequency band %band"
     //% band.min=0 band.max=83
     //% advanced=true
     void setFrequencyBand(int band) {
