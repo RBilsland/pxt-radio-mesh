@@ -1,4 +1,3 @@
-
 enum RadioMeshPacketProperty {
     //% blockIdentity=radioMesh._packetProperty
     //% block="signal strength"
