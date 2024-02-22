@@ -40,8 +40,8 @@ using namespace pxt;
 #define MICROBIT_RADIO_MESH_EVT_DATAGRAM             1       // Event to signal that a new datagram has been received.
 #endif
 
-#ifndef DEVICE_RADIO_EVT_DATAGRAM
-#define DEVICE_RADIO_EVT_DATAGRAM MICROBIT_RADIO_MESH_EVT_DATAGRAM
+#ifndef DEVICE_RADIO_MESH_EVT_DATAGRAM
+#define DEVICE_RADIO_MESH_EVT_DATAGRAM MICROBIT_RADIO_MESH_EVT_DATAGRAM
 #endif
 
 //% color=#E3008C weight=96 icon="\uf012"
@@ -164,7 +164,7 @@ CODAL_RADIO* getRadioMesh() {
     }
 
     /**
-     * Internal use only. Takes the next packet from the radio queue and returns its contents + RSSI in a Buffer.
+     * Internal use only. Takes the next packet from the radio mesh queue and returns its contents + RSSI in a Buffer.
      * @returns NULL if no packet available
      */
     //%
@@ -199,7 +199,7 @@ CODAL_RADIO* getRadioMesh() {
     }
 
     /**
-     * Internal use only. Sends a raw packet through the radio (assumes RSSI appened to packet)
+     * Internal use only. Sends a raw packet through the radio mesh (assumes RSSI appened to packet)
      */
     //% async
     void sendRawPacket(Buffer msg) {
@@ -224,7 +224,7 @@ CODAL_RADIO* getRadioMesh() {
 #ifdef CODAL_RADIO        
         if (radioMeshEnable() != DEVICE_OK) return;
 
-        registerWithDal(DEVICE_ID_RADIO_MESH, DEVICE_RADIO_EVT_DATAGRAM, body);
+        registerWithDal(DEVICE_ID_RADIO_MESH, DEVICE_RADIO_MESH_EVT_DATAGRAM, body);
         getRadioMesh()->datagram.recv(); // wake up read code
 #endif       
     }
@@ -264,12 +264,12 @@ CODAL_RADIO* getRadioMesh() {
     }
 
     /**
-    * Change the transmission and reception band of the radio to the given channel
+    * Change the transmission and reception band of the radio mesh to the given channel
     * @param band a frequency band in the range 0 - 83. Each step is 1MHz wide, based at 2400MHz.
     **/
     //% help=radioMesh/set-frequency-band
     //% weight=8 blockGap=8
-    //% blockId=radio_mesh_set_frequency_band block="radio set frequency band %band"
+    //% blockId=radio_mesh_set_frequency_band block="radio mesh set frequency band %band"
     //% band.min=0 band.max=83
     //% advanced=true
     void setFrequencyBand(int band) {
